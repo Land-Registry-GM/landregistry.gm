@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     Log::info('Welcome page visited');
     return view('welcome');
-});
+})->name('home');
 
 Route::get('/info', function () {
     Log::info('Phpinfo page visited');
@@ -63,3 +63,28 @@ Route::get('/health', function () {
 
     return response()->json($status, $httpStatus);
 });
+
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+
+Route::get('/services', function () {
+    return view('services');
+})->name('services');
+
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
+
+Route::get('/faq', function () {
+    return view('faq');
+})->name('faq');
+
+Route::get('/privacy', function () {
+    return view('privacy');
+})->name('privacy');
+
+Route::get('/terms', function () {
+    return view('terms');
+})->name('terms');
+

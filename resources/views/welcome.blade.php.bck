@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('app.name', 'Land Registry - The Gambia') }}</title>
     
+    <!-- Laravel Vite Integration -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -52,20 +55,6 @@
         }
         .nav-links a:hover {
             opacity: 0.8;
-        }
-        .nav-auth {
-            display: flex;
-            gap: 10px;
-        }
-        .nav-auth a {
-            color: white;
-            text-decoration: none;
-            padding: 8px 16px;
-            border-radius: 4px;
-            transition: background-color 0.3s;
-        }
-        .nav-auth a:hover {
-            background-color: rgba(255,255,255,0.1);
         }
         .search-bar {
             display: flex;
@@ -205,31 +194,6 @@
                     <a href="{{ route('services') }}">Services</a>
                     <a href="{{ route('contact') }}">Contact</a>
                     <a href="{{ route('faq') }}">FAQ</a>
-                    
-                    <!-- Auth Links -->
-                    <!-- <div class="nav-auth"> -->
-                    @auth
-                        <a
-                            href="{{ url('/auth/dashboard') }}"
-                            class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                        >
-                            Dashboard
-                        </a>
-                    @else
-                        <a
-                            href="/auth/login"
-                            class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                        >
-                            Log in
-                        </a>
-                        <a
-                            href="/auth/register"
-                            class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                        >
-                            Register
-                        </a>
-                    @endauth
-                    <!-- </div> -->
                 </div>
             </div>
         </nav>

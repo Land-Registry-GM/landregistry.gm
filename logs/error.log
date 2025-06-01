@@ -1,0 +1,70 @@
+[Sat Apr 26 13:47:38.995666 2025] [authz_core:error] [pid 20423] [client 165.227.173.41:54038] AH01630: client denied by server configuration: /var/www/landregistry.gm/server-status
+[Sat Apr 26 13:47:40.129311 2025] [authz_core:error] [pid 20431] [client 207.154.212.47:39026] AH01630: client denied by server configuration: /var/www/landregistry.gm/server-status
+[Sat Apr 26 13:47:40.230360 2025] [php7:error] [pid 20432] [client 165.227.173.41:54114] script '/var/www/landregistry.gm/info.php' not found or unable to stat
+[Sat Apr 26 13:47:40.913446 2025] [php7:error] [pid 20422] [client 207.154.212.47:39128] script '/var/www/landregistry.gm/info.php' not found or unable to stat
+[Sun Apr 27 15:03:26.920932 2025] [php7:error] [pid 1083] [client 213.232.87.234:36801] script '/var/www/landregistry.gm/config.php' not found or unable to stat
+[Sun Apr 27 15:03:27.324281 2025] [authz_core:error] [pid 1083] [client 213.232.87.234:24239] AH01630: client denied by server configuration: /var/www/landregistry.gm/server-status
+[Sun Apr 27 15:03:27.324894 2025] [php7:error] [pid 1178] [client 213.232.87.234:23693] script '/var/www/landregistry.gm/wp-config.php' not found or unable to stat
+[Sun Apr 27 15:03:27.492222 2025] [php7:error] [pid 1122] [client 213.232.87.234:28827] script '/var/www/landregistry.gm/phpinfo.php' not found or unable to stat
+[Mon Apr 28 13:18:09.233630 2025] [authz_core:error] [pid 13126] [client 138.68.86.32:48006] AH01630: client denied by server configuration: /var/www/landregistry.gm/server-status
+[Mon Apr 28 13:18:12.156406 2025] [php7:error] [pid 13127] [client 138.68.86.32:48114] script '/var/www/landregistry.gm/info.php' not found or unable to stat
+[Mon Apr 28 13:18:17.847251 2025] [authz_core:error] [pid 13124] [client 146.190.103.103:35792] AH01630: client denied by server configuration: /var/www/landregistry.gm/server-status
+[Mon Apr 28 13:18:22.128062 2025] [php7:error] [pid 13018] [client 146.190.103.103:35898] script '/var/www/landregistry.gm/info.php' not found or unable to stat
+[Wed Apr 30 08:30:16.433662 2025] [authz_core:error] [pid 4734] [client 206.81.24.227:33506] AH01630: client denied by server configuration: /var/www/landregistry.gm/server-status
+[Wed Apr 30 08:30:17.878288 2025] [php7:error] [pid 4582] [client 206.81.24.227:33586] script '/var/www/landregistry.gm/info.php' not found or unable to stat
+[Wed Apr 30 08:30:23.508987 2025] [authz_core:error] [pid 4781] [client 143.244.168.161:44440] AH01630: client denied by server configuration: /var/www/landregistry.gm/server-status
+[Wed Apr 30 08:30:25.545508 2025] [php7:error] [pid 4752] [client 143.244.168.161:44514] script '/var/www/landregistry.gm/info.php' not found or unable to stat
+[Fri May 02 09:02:03.458733 2025] [authz_core:error] [pid 3165] [client 188.166.108.93:43396] AH01630: client denied by server configuration: /var/www/landregistry.gm/server-status
+[Fri May 02 09:02:05.043825 2025] [php7:error] [pid 3305] [client 188.166.108.93:43454] script '/var/www/landregistry.gm/info.php' not found or unable to stat
+[Fri May 02 09:02:07.292564 2025] [authz_core:error] [pid 2989] [client 143.110.213.72:51170] AH01630: client denied by server configuration: /var/www/landregistry.gm/server-status
+[Fri May 02 09:02:09.745892 2025] [php7:error] [pid 3228] [client 143.110.213.72:51260] script '/var/www/landregistry.gm/info.php' not found or unable to stat
+[Sun May 04 12:43:40.082579 2025] [authz_core:error] [pid 3094] [client 206.81.24.227:59458] AH01630: client denied by server configuration: /var/www/landregistry.gm/server-status
+[Sun May 04 12:43:41.813268 2025] [php7:error] [pid 444] [client 206.81.24.227:59546] script '/var/www/landregistry.gm/info.php' not found or unable to stat
+[Sun May 04 12:43:49.142767 2025] [authz_core:error] [pid 418] [client 164.92.107.174:48646] AH01630: client denied by server configuration: /var/www/landregistry.gm/server-status
+[Sun May 04 12:43:53.396954 2025] [php7:error] [pid 3094] [client 164.92.107.174:41056] script '/var/www/landregistry.gm/info.php' not found or unable to stat
+[Tue May 06 12:17:31.763064 2025] [authz_core:error] [pid 32090] [client 206.189.19.19:59882] AH01630: client denied by server configuration: /var/www/landregistry.gm/server-status
+[Tue May 06 12:17:33.377174 2025] [php7:error] [pid 389] [client 206.189.19.19:59948] script '/var/www/landregistry.gm/info.php' not found or unable to stat
+[Tue May 06 12:17:35.605599 2025] [authz_core:error] [pid 32091] [client 164.90.208.56:57458] AH01630: client denied by server configuration: /var/www/landregistry.gm/server-status
+[Tue May 06 12:17:36.046854 2025] [php7:error] [pid 390] [client 164.90.208.56:57520] script '/var/www/landregistry.gm/info.php' not found or unable to stat
+[Thu May 08 21:23:13.108812 2025] [authz_core:error] [pid 27275] [client 157.230.19.140:51336] AH01630: client denied by server configuration: /var/www/landregistry.gm/server-status
+[Thu May 08 21:23:14.870990 2025] [php7:error] [pid 30615] [client 157.230.19.140:36664] script '/var/www/landregistry.gm/info.php' not found or unable to stat
+[Thu May 08 21:23:15.431286 2025] [authz_core:error] [pid 30612] [client 157.245.204.205:55692] AH01630: client denied by server configuration: /var/www/landregistry.gm/server-status
+[Thu May 08 21:23:19.713579 2025] [php7:error] [pid 22563] [client 157.245.204.205:55780] script '/var/www/landregistry.gm/info.php' not found or unable to stat
+[Sat May 10 03:08:39.378777 2025] [authz_core:error] [pid 15846] [client 64.226.78.121:50786] AH01630: client denied by server configuration: /var/www/landregistry.gm/server-status
+[Sat May 10 03:08:41.048456 2025] [php7:error] [pid 15853] [client 64.226.78.121:50870] script '/var/www/landregistry.gm/info.php' not found or unable to stat
+[Sat May 10 03:08:45.358049 2025] [authz_core:error] [pid 15877] [client 147.182.200.94:36014] AH01630: client denied by server configuration: /var/www/landregistry.gm/server-status
+[Sat May 10 03:08:49.206109 2025] [php7:error] [pid 15725] [client 147.182.200.94:45912] script '/var/www/landregistry.gm/info.php' not found or unable to stat
+[Mon May 12 02:26:16.838138 2025] [authz_core:error] [pid 13117] [client 142.93.129.190:36346] AH01630: client denied by server configuration: /var/www/landregistry.gm/server-status
+[Mon May 12 02:26:18.676917 2025] [php7:error] [pid 11748] [client 142.93.129.190:36418] script '/var/www/landregistry.gm/info.php' not found or unable to stat
+[Mon May 12 02:26:19.475196 2025] [authz_core:error] [pid 13100] [client 138.197.191.87:35322] AH01630: client denied by server configuration: /var/www/landregistry.gm/server-status
+[Mon May 12 02:26:19.975247 2025] [php7:error] [pid 14411] [client 138.197.191.87:35400] script '/var/www/landregistry.gm/info.php' not found or unable to stat
+[Mon May 12 13:36:49.523670 2025] [php7:error] [pid 17577] [client 128.199.138.187:54275] script '/var/www/landregistry.gm/xmlrpc.php' not found or unable to stat
+[Tue May 13 13:02:19.900742 2025] [php7:error] [pid 30885] [client 206.189.95.202:52033] script '/var/www/landregistry.gm/xmlrpc.php' not found or unable to stat
+[Wed May 14 02:12:24.168737 2025] [authz_core:error] [pid 5459] [client 68.183.9.16:46076] AH01630: client denied by server configuration: /var/www/landregistry.gm/server-status
+[Wed May 14 02:12:25.866548 2025] [php7:error] [pid 9642] [client 68.183.9.16:46140] script '/var/www/landregistry.gm/info.php' not found or unable to stat
+[Wed May 14 02:12:28.869857 2025] [authz_core:error] [pid 9641] [client 134.122.28.88:57188] AH01630: client denied by server configuration: /var/www/landregistry.gm/server-status
+[Wed May 14 02:12:30.883260 2025] [php7:error] [pid 9643] [client 134.122.28.88:57254] script '/var/www/landregistry.gm/info.php' not found or unable to stat
+[Fri May 16 02:48:56.136908 2025] [authz_core:error] [pid 30417] [client 138.68.86.32:34986] AH01630: client denied by server configuration: /var/www/landregistry.gm/server-status
+[Fri May 16 02:48:57.722225 2025] [php7:error] [pid 3866] [client 138.68.86.32:35054] script '/var/www/landregistry.gm/info.php' not found or unable to stat
+[Fri May 16 02:49:03.322795 2025] [authz_core:error] [pid 3866] [client 159.65.144.72:40012] AH01630: client denied by server configuration: /var/www/landregistry.gm/server-status
+[Fri May 16 02:49:07.441688 2025] [php7:error] [pid 31506] [client 159.65.144.72:41444] script '/var/www/landregistry.gm/info.php' not found or unable to stat
+[Fri May 16 22:23:49.232557 2025] [php7:error] [pid 9370] [client 159.65.3.113:58282] script '/var/www/landregistry.gm/xmlrpc.php' not found or unable to stat
+[Sat May 17 23:51:22.731363 2025] [php7:error] [pid 24261] [client 18.141.158.145:50269] script '/var/www/landregistry.gm/xmlrpc.php' not found or unable to stat
+[Sun May 18 03:41:48.739268 2025] [authz_core:error] [pid 29807] [client 64.226.78.121:39014] AH01630: client denied by server configuration: /var/www/landregistry.gm/server-status
+[Sun May 18 03:41:50.647415 2025] [php7:error] [pid 27969] [client 64.226.78.121:39104] script '/var/www/landregistry.gm/info.php' not found or unable to stat
+[Sun May 18 03:41:50.885914 2025] [authz_core:error] [pid 32092] [client 206.189.233.36:53702] AH01630: client denied by server configuration: /var/www/landregistry.gm/server-status
+[Sun May 18 03:41:52.876410 2025] [php7:error] [pid 32282] [client 206.189.233.36:53782] script '/var/www/landregistry.gm/info.php' not found or unable to stat
+[Tue May 20 17:44:24.636909 2025] [authz_core:error] [pid 28530] [client 206.81.24.227:59810] AH01630: client denied by server configuration: /var/www/landregistry.gm/server-status
+[Tue May 20 17:44:26.325819 2025] [php7:error] [pid 28546] [client 206.81.24.227:59920] script '/var/www/landregistry.gm/info.php' not found or unable to stat
+[Tue May 20 17:44:27.045646 2025] [authz_core:error] [pid 28533] [client 206.81.24.74:55692] AH01630: client denied by server configuration: /var/www/landregistry.gm/server-status
+[Tue May 20 17:44:27.476460 2025] [php7:error] [pid 30270] [client 206.81.24.74:55774] script '/var/www/landregistry.gm/info.php' not found or unable to stat
+[Thu May 22 04:33:05.407683 2025] [php7:error] [pid 14474] [client 170.39.217.236:29294] script '/var/www/landregistry.gm/phpinfo.php' not found or unable to stat
+[Thu May 22 04:33:06.036688 2025] [php7:error] [pid 14474] [client 170.39.217.236:29294] script '/var/www/landregistry.gm/info.php' not found or unable to stat
+[Thu May 22 12:16:13.767304 2025] [authz_core:error] [pid 18889] [client 207.154.212.47:38898] AH01630: client denied by server configuration: /var/www/landregistry.gm/server-status
+[Thu May 22 12:16:15.493715 2025] [php7:error] [pid 18891] [client 207.154.212.47:44978] script '/var/www/landregistry.gm/info.php' not found or unable to stat
+[Thu May 22 12:16:21.731579 2025] [authz_core:error] [pid 18891] [client 146.190.63.48:53216] AH01630: client denied by server configuration: /var/www/landregistry.gm/server-status
+[Thu May 22 12:16:25.571046 2025] [php7:error] [pid 18888] [client 146.190.63.48:53316] script '/var/www/landregistry.gm/info.php' not found or unable to stat
+[Sat May 24 12:03:40.270380 2025] [authz_core:error] [pid 21909] [client 206.189.19.19:56516] AH01630: client denied by server configuration: /var/www/landregistry.gm/server-status
+[Sat May 24 12:03:41.410268 2025] [php7:error] [pid 21992] [client 206.189.19.19:56602] script '/var/www/landregistry.gm/info.php' not found or unable to stat
+[Sat May 24 12:03:49.356408 2025] [authz_core:error] [pid 19116] [client 206.189.225.181:39522] AH01630: client denied by server configuration: /var/www/landregistry.gm/server-status
+[Sat May 24 12:03:51.317057 2025] [php7:error] [pid 21990] [client 206.189.225.181:39580] script '/var/www/landregistry.gm/info.php' not found or unable to stat

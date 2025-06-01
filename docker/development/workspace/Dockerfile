@@ -1,6 +1,6 @@
 # docker/development/workspace/Dockerfile
 # Use the official PHP CLI image as the base
-FROM php:8.4-cli
+FROM php:8.3-cli
 
 # Set environment variables for user and group ID
 ARG UID=1000
@@ -8,13 +8,6 @@ ARG GID=1000
 ARG NODE_VERSION=22.0.0
 
 RUN apt update && apt install wget -y
-
-# Fetch huawei ssl certificates
-RUN wget --no-check-certificate https://gitlab-uk.rnd.huawei.com/sir_lab/docs/-/raw/master/Infrastructure/config/certs/HuaweiITRootCA.pem -O /usr/local/share/ca-certificates/HuaweiITRootCA.crt
-RUN wget --no-check-certificate https://gitlab-uk.rnd.huawei.com/sir_lab/docs/-/raw/master/Infrastructure/config/certs/HuaweiItEnterpriseCA1.pem -O /usr/local/share/ca-certificates/HuaweiItEnterpriseCA1.crt
-RUN wget --no-check-certificate https://gitlab-uk.rnd.huawei.com/sir_lab/docs/-/raw/master/Infrastructure/config/certs/huawei.pem -O /usr/local/share/ca-certificates/huawei.crt
-RUN wget --no-check-certificate https://gitlab-uk.rnd.huawei.com/sir_lab/docs/-/raw/master/Infrastructure/config/certs/HuaweiSecureInternetProxyCA.pem -O /usr/local/share/ca-certificates/HuaweiSecureInternetProxyCA.crt
-RUN wget --no-check-certificate https://gitlab-uk.rnd.huawei.com/sir_lab/docs/-/raw/master/Infrastructure/config/certs/HuaweiWebSecureInternetGatewayCA.pem -O /usr/local/share/ca-certificates/HuaweiWebSecureInternetGatewayCA.crt
 
 # Install SSL certificates
 RUN update-ca-certificates
