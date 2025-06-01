@@ -47,10 +47,6 @@ services:
 
   workspace:
    # For the workspace service, we will also create a custom image to install and setup all the necessary stuff.
-    # environment:
-    #   - HTTP_PROXY=http://192.168.1.1:3128
-    #   - HTTPS_PROXY=http://192.168.1.1:3128
-    #   - NO_PROXY=localhost,127.0.0.1
     build:
       context: .
       dockerfile: ./docker/development/workspace/Dockerfile
