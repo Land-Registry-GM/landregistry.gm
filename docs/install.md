@@ -3,11 +3,27 @@ This is supposed to be a technical documentation which would cover design and se
 
 ## Architecture
 ![image](diagrams/arch.png)
+### Main Services
 
-There are three main components:
+The prototype uses a multi-container Docker setup with the following main services:
 
+1. **Nginx**: Acts as the web server and reverse proxy, handling HTTP requests and serving static files.
+2. **PHP**: Runs the Laravel application code and processes backend logic.
+3. **Workspace**: Provides a development environment with tools and utilities for running commands, installing dependencies, and managing the application.
+4. **Redis**: An in-memory data store used for caching and queue management.
+5. **Postgres**: The primary relational database for storing application data.
 
-## Setting up dev eng
+Each service runs in its own container, ensuring isolation and easier management.
+
+### Database Schema
+
+The following diagram illustrates the core database schema for the landregistry.gm prototype:
+
+![Database Schema](diagrams/db_design.png)
+
+This schema covers the main entities such as properties, owners, documents, transactions, and their relationships. It serves as a reference for understanding how data is structured and interconnected within the application.
+
+## Setting up dev env
 
 1. Install Docker and Docker compose
 ```bash
@@ -89,6 +105,33 @@ docker compose -f compose.dev.yaml exec workspace php artisan migrate
 
 Open your browser and go to [http://localhost](http://localhost).
 
+
+# Some useful commands
+
+- **Access Workspace**: Open a shell in the workspace container.  
+    ```bash
+    docker compose -f compose.dev.yaml exec workspace bash
+    ```
+- **Execute commands directly**: Execute Laravel database migrations.  
+    ```bash
+    docker compose -f compose.dev.yaml exec workspace php artisan migrate
+    ```
+- **Rebuild Containers**: Rebuild and restart all Docker containers.  Useful for when you make changes to the Dockerfile or .env file.
+    ```bash
+    docker compose -f compose.dev.yaml up -d --build
+    ```
+- **Stop Containers**: Stop and remove all running containers.  
+    ```bash
+    docker compose -f compose.dev.yaml down
+    ```
+- **View Logs**: Show real-time logs from all containers.  
+    ```bash
+    docker compose -f compose.dev.yaml logs -f
+    ```
+- **View Web Logs**: Show logs for the web service only.  
+    ```bash
+    docker compose -f compose.dev.yaml logs -f web
+    ```
 
 
 ## Filament Reference
