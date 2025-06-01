@@ -142,6 +142,7 @@ php artisan make:filament-resource Property
 
 
 ### Relationship managers
+```php
 php artisan make:filament-relation-manager PropertyResource owners title
 php artisan make:filament-relation-manager PropertyResource documents title
 php artisan make:filament-relation-manager PropertyResource legalEncumbrances title
@@ -150,14 +151,19 @@ php artisan make:filament-relation-manager PropertyResource taxRecords title
 php artisan make:filament-relation-manager PropertyResource surveys title
 php artisan make:filament-relation-manager PropertyResource permits title
 php artisan make:filament-relation-manager PropertyResource disputes title
+```
 
 ### many to many relationship
+```php
 php artisan make:migration create_property_owner_table
+```
 
 
 ### Filament Resources & CRUD operation very simplified
+```php
 php artisan make:filament-resource Owner
 php artisan make:filament-resource Property
+```
 
 
 
@@ -168,8 +174,10 @@ can different people owning the same land have different type of ownership e.g. 
 
 docker compose -f compose.dev.yaml exec workspace php artisan key:generate
 
+### Questions and Minutes
+https://hackmd.io/@R_RNgefpQzWmm6RR3WWS9w/S1lKUWqGge/edit
 
 ### Some issues
-1. auditing, keeping track of changes
+1. Auditing, keeping track of changes
 2. 
 
