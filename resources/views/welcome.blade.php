@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ config('app.name', 'Land Registry - The Gambia') }}</title>
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem 0;
+        }
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        .logo {
+            font-weight: bold;
+            font-size: 1.5rem;
+            white-space: nowrap;
+        }
+        .nav-content {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            width: 100%;
+            justify-content: space-between;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+            white-space: nowrap;
+        }
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+        .nav-auth {
+            display: flex;
+            gap: 10px;
+        }
+        .nav-auth a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .nav-auth a:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        .search-bar {
+            display: flex;
+            min-width: 400px;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 20px;
+        }
+        .search-bar input {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            width: 100%;
+            font-size: 14px;
+        }
+        .search-bar button {
+            padding: 0 20px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .search-bar button:hover {
+            background-color: #2ecc71;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        .under-construction {
+            background-color: #27ae60;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            font-size: 1.2em;
+        }
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card h3 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        .contact {
+            text-align: center;
+            margin: 40px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+        }
+        .contact a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        .contact a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+        }
+        .footer-links {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 0;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s;
+        }
+        .footer-links a:hover {
+            border-bottom: 1px solid white;
+        }
+        .copyright {
+            margin-top: 20px;
+        }
+        @media (max-width: 1024px) {
+            .nav-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .search-bar {
+                min-width: 100%;
+                max-width: 100%;
+                margin: 15px 0;
+            }
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                justify-content: center;
+            }
+            .footer-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-content">
+                <div class="logo">{{ config('app.name', 'LRGM') }}</div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search for Property or Land...">
+                    <button>Search</button>
+                </div>
+                <div class="nav-links">
+                    <a href="{{ route('home') }}">Home</a>
+                    <a href="{{ route('about') }}">About</a>
+                    <a href="{{ route('services') }}">Services</a>
+                    <a href="{{ route('contact') }}">Contact</a>
+                    <a href="{{ route('faq') }}">FAQ</a>
+                    
+                    <!-- Auth Links -->
+                    <!-- <div class="nav-auth"> -->
+                    @auth
+                        <a
+                            href="{{ url('/auth/dashboard') }}"
+                            class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                        >
+                            Dashboard
+                        </a>
+                    @else
+                        <a
+                            href="/auth/login"
+                            class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                        >
+                            Log in
+                        </a>
+                        <a
+                            href="/auth/register"
+                            class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                        >
+                            Register
+                        </a>
+                    @endauth
+                    <!-- </div> -->
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="under-construction">
+            Website Under Construction
+        </div>
+        
+        <p style="text-align: center; max-width: 800px; margin: 0 auto;">
+            We are working on a modern land registry system for The Gambia that will transform property registration and management.
+        </p>
+        
+        <div class="cards">
+            <div class="card">
+                <h3>Secure Land Records</h3>
+                <p>Digital system for secure and transparent land ownership records with tamper-proof documentation.</p>
+            </div>
+            <div class="card">
+                <h3>Title Registration</h3>
+                <p>Streamlined digital land title registration and verification process to reduce bureaucracy.</p>
+            </div>
+            <div class="card">
+                <h3>Property Information</h3>
+                <p>Online access to verified property information for citizens, businesses and government agencies.</p>
+            </div>
+            <div class="card">
+                <h3>Efficient Processes</h3>
+                <p>Reduced paperwork and automated workflows to make transactions faster and more reliable.</p>
+            </div>
+            <div class="card">
+                <h3>Open Development</h3>
+                <p>Transparent, open-source approach to system development for public trust and collaboration.</p>
+            </div>
+            <div class="card">
+                <h3>Dispute Resolution</h3>
+                <p>Integrated mechanisms for addressing land disputes and maintaining accurate records.</p>
+            </div>
+        </div>
+        
+        <div class="contact">
+            <h3>Contact Us</h3>
+            <p>For inquiries, please email: <a href="mailto:{{ config('mail.contact_email', 'info@landregistry.gm') }}">{{ config('mail.contact_email', 'info@landregistry.gm') }}</a></p>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-links">
+            <a href="https://www.landregistry.gm" target="_blank">Official Website</a>
+            <a href="https://github.com/Land-Registry-GM/landregistry.gm" target="_blank">GitHub Project</a>
+            <a href="mailto:{{ config('mail.contact_email', 'info@landregistry.gm') }}">Contact Email</a>
+            <a href="{{ route('privacy') }}">Privacy Policy</a>
+            <a href="{{ route('terms') }}">Terms of Service</a>
+        </div>
+        <div class="copyright">
+            &copy; {{ date('Y') }} {{ config('app.name', 'Land Registry - The Gambia') }}. All rights reserved.
+        </div>
+    </footer>
+</body>
+</html>
