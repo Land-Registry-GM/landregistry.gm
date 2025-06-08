@@ -165,6 +165,73 @@ php artisan make:filament-resource Owner
 php artisan make:filament-resource Property
 ```
 
+### Install Filament Shield for Permissions
+
+To add role and permission management to your Filament admin panel, install and set up the Filament Shield package:
+
+```bash
+composer require bezhansalleh/filament-shield
+```
+```bash
+# Publish the Filament Shield config file
+php artisan vendor:publish --tag="filament-shield-config"
+
+# Install and set up Filament Shield without Tenancy
+php artisan shield:setup
+
+# Install Panel
+php artisan shield:install auth #replace auth with your authentication url this can be sometime be admin.
+
+```
+Now when you refresh the page you should see the Filament Shield installed. If you don't see one. You can configure your account to be super admin by followin steps below. 
+
+```
+php artisan shield:super-admin
+```
+![alt text](image.png)
+
+then choose the super admin user, once you login at that user you will see the filament shield panel.
+
+### Generate Permissions and Publish Policies
+
+After installing and setting up Filament Shield, you can generate permissions for all resources and publish policy files using the following commands:
+
+```bash
+php artisan shield:generate --all
+```
+This command scans your Filament resources and generates all necessary permissions (view, create, update, delete, etc.) for them.
+
+```bash
+php artisan shield:publish auth
+```
+This command publishes the policy files for the `auth` guard, allowing you to customize authorization logic for your resources.
+
+
+### Activity Log
+
+We are using Spatie activity log to log all events of all models for auditing.
+
+#### Install and Set Up Spatie Activity Log
+
+```bash
+composer require spatie/laravel-activitylog
+```
+
+Publish the config and migration files:
+
+```bash
+php artisan vendor:publish --provider="Spatie\Activitylog\ActivitylogServiceProvider" --tag="activitylog-migrations"
+php artisan vendor:publish --provider="Spatie\Activitylog\ActivitylogServiceProvider" --tag="activitylog-config"
+```
+
+Run the migration to create the `activity_log` table:
+
+```bash
+php artisan migrate
+```
+
+Refer to the [Spatie Activitylog documentation](https://spatie.be/docs/laravel-activitylog/v4/introduction) for further configuration and usage.
+
 
 
 can different people owning the same land have different type of ownership e.g. one has Freehold and the other have Lease ownership?
@@ -179,5 +246,5 @@ https://hackmd.io/@R_RNgefpQzWmm6RR3WWS9w/S1lKUWqGge/edit
 
 ### Some issues
 1. Auditing, keeping track of changes
-2. 
+2.
 

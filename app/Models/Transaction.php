@@ -3,9 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class Transaction extends Model
 {
+    use LogsActivity;
+
     protected $fillable = [
         'property_id',
         'transaction_type',
@@ -37,5 +41,13 @@ class Transaction extends Model
     public function seller()
     {
         return $this->belongsTo(Owner::class, 'seller_id');
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logFillable()
+            ->logOnlyDirty()
+            ->setDescriptionForEvent(fn(string $eventName) => "Transaction model has been {$eventName}");
     }
 }

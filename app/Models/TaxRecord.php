@@ -3,9 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class TaxRecord extends Model
 {
+    use LogsActivity;
+
     protected $fillable = [
         'property_id',
         'assessed_value',
@@ -31,5 +35,13 @@ class TaxRecord extends Model
     public function exemptions()
     {
         return $this->hasMany(TaxExemption::class);
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logFillable()
+            ->logOnlyDirty()
+            ->setDescriptionForEvent(fn(string $eventName) => "TaxRecord model has been {$eventName}");
     }
 }

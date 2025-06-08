@@ -134,11 +134,11 @@ class PropertyResource extends Resource
                         
                     Select::make('land_use_type')
                         ->options([
-                            'residential' => 'Residential',
-                            'commercial' => 'Commercial',
-                            'agricultural' => 'Agricultural',
-                            'industrial' => 'Industrial',
-                            'mixed_use' => 'Mixed Use',
+                            'Residential' => 'Residential',
+                            'Commercial' => 'Commercial',
+                            'Agricultural' => 'Agricultural',
+                            'Industrial' => 'Industrial',
+                            'Mixed_use' => 'Mixed Use',
                         ])
                         ->required(),
                         

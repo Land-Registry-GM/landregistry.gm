@@ -3,9 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class Permit extends Model
 {
+    use LogsActivity;
+
     protected $fillable = [
         'property_id',
         'permit_type',
@@ -24,5 +28,13 @@ class Permit extends Model
     public function property()
     {
         return $this->belongsTo(Property::class);
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logFillable()
+            ->logOnlyDirty()
+            ->setDescriptionForEvent(fn(string $eventName) => "Permit model has been {$eventName}");
     }
 }

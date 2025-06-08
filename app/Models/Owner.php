@@ -3,9 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class Owner extends Model
 {
+    use LogsActivity;
+
     protected $fillable = [
         'owner_name',
         'owner_id_type',
@@ -19,6 +23,14 @@ class Owner extends Model
     protected $casts = [
         'dob' => 'date',
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logFillable()
+            ->logOnlyDirty()
+            ->setDescriptionForEvent(fn(string $eventName) => "Owner model has been {$eventName}");
+    }
 
     // Relationships
     // public function property()
