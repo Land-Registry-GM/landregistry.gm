@@ -20,6 +20,7 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Models\Setting;
 
 class PropertyResource extends Resource
 {
@@ -50,26 +51,59 @@ class PropertyResource extends Resource
                                 ->required()
                                 ->maxLength(100),
                                 
-                            TextInput::make('state')
-                                ->required()
-                                ->maxLength(100),
-                                
                             TextInput::make('postal_code')
                                 ->required()
                                 ->maxLength(20),
                                 
-                            Select::make('ownership_type')
+                            Select::make('region_id')
+                                ->label('Region')
+                                ->options(
+                                    Setting::where('type', 'region')
+                                        ->orderBy('sort_order')
+                                        ->pluck('name', 'id')
+                                )
+                                ->required()
+                                ->searchable()
+                                ->preload()
+                                ->reactive(),
+
+                            Select::make('district_id')
+                                ->label('District')
+                                ->options(function (callable $get) {
+                                    $regionId = $get('region_id');
+                                    if (!$regionId) {
+                                        return [];
+                                    }
+                                    return Setting::where('type', 'district')
+                                        ->where('parent_id', $regionId)
+                                        ->orderBy('sort_order')
+                                        ->pluck('name', 'id');
+                                })
+                                ->required()
+                                ->searchable()
+                                ->preload()
+                                ->reactive(),
+
+                            Select::make('ownership_type_id')  // Changed to _id to match relation convention
                                 ->label('Ownership Type')
-                                ->options([
-                                    'Freehold' => 'Freehold',
-                                    'Leasehold' => 'Leasehold',
-                                    'Customary' => 'Customary',
-                                    'Joint' => 'Joint Ownership',
-                                    'Corporate' => 'Corporate Ownership',
-                        ])
-                        ->required()
-                        ->default('Freehold'),
-                        ])->columns(2),
+                                ->options(
+                                    Setting::where('type', 'ownership_type')
+                                        ->orderBy('sort_order')
+                                        ->pluck('name', 'id')
+                                )
+                                ->required()
+                                ->default(
+                                    fn () => Setting::where('type', 'land_use')
+                                        ->where('name', 'Freehold')
+                                        ->first()?->id
+                                )
+                                ->searchable()  // Added for better UX with many options
+                                ->preload()     // Loads options immediately
+                            ]),
+
+                            
+                        
+                    
                 ]),
                 
             Section::make('Geographical Data')
@@ -132,25 +166,27 @@ class PropertyResource extends Resource
                         ->suffix('sq. meters')
                         ->inputMode('decimal'),
                         
-                    Select::make('land_use_type')
-                        ->options([
-                            'Residential' => 'Residential',
-                            'Commercial' => 'Commercial',
-                            'Agricultural' => 'Agricultural',
-                            'Industrial' => 'Industrial',
-                            'Mixed_use' => 'Mixed Use',
-                        ])
-                        ->required(),
-                        
-                    Select::make('zoning')
-                        ->options([
-                            'R1' => 'Residential (R1)',
-                            'R2' => 'Residential (R2)',
-                            'C1' => 'Commercial (C1)',
-                            'A1' => 'Agricultural (A1)',
-                            'I1' => 'Industrial (I1)',
-                        ])
-                        ->required(),
+                    Select::make('land_use_type_id')
+                        ->label('Land Use Type')
+                        ->options(
+                            Setting::where('type', 'land_use')
+                                ->orderBy('sort_order')
+                                ->pluck('name', 'id')
+                        )
+                        ->required()
+                        ->searchable()
+                        ->preload(),
+
+                    Select::make('zoning_id')  // Changed to _id to match relation convention
+                        ->label('Zoning')
+                        ->options(
+                            Setting::where('type', 'zoning')
+                                ->orderBy('sort_order')
+                                ->pluck('name', 'id')
+                        )
+                        ->required()
+                        ->searchable()
+                        ->preload(),
                         
                     TextInput::make('survey_plan_number')
                         ->nullable()

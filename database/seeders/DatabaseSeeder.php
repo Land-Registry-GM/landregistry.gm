@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         // Call custom seeders
         $this->call([
             UserSeeder::class,
+            SettingsSeeder::class,
             OwnerSeeder::class,
             PropertySeeder::class,
             ShieldSeeder::class,

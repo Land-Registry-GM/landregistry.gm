@@ -4,7 +4,6 @@ erDiagram
         string parcel_id PK
         string street
         string city
-        string state
         string postal_code
         string country
         decimal centroid_lat

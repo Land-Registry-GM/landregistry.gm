@@ -3,16 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\SettingResource\Pages;
-use App\Filament\Resources\SettingResource\RelationManagers;
 use App\Models\Setting;
-use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
@@ -91,7 +87,7 @@ class SettingResource extends Resource
 
                 TextColumn::make('parent.name')
                     ->label('Parent')
-                    ->visible(fn ($record) => $record->type === 'district'),
+                    ->visible(fn ($record) => $record && $record->type === 'district'),
 
                 IconColumn::make('is_active')
                     ->boolean()

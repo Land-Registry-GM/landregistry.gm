@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Property;
+use App\Models\Setting;
 
 class PropertySeeder extends Seeder
 {
@@ -14,9 +15,7 @@ class PropertySeeder extends Seeder
                 'parcel_id' => 'GM-BJL-001',
                 'street' => 'Kairaba Avenue',
                 'city' => 'Serrekunda',
-                'state' => 'Kanifing',
                 'postal_code' => '220',
-                'ownership_type' => 'Freehold',
                 'centroid_lat' => 13.4576,
                 'centroid_lng' => -16.6766,
                 'boundary_coordinates' => [
@@ -26,8 +25,6 @@ class PropertySeeder extends Seeder
                     [13.4576, -16.6770],
                 ],
                 'area' => 500,
-                'land_use_type' => 'Residential',
-                'zoning' => 'Urban',
                 'survey_plan_number' => 'SPN-2024-001',
                 'boundary_description' => 'Located near Kairaba Shopping Center, Serrekunda.',
             ],
@@ -35,9 +32,7 @@ class PropertySeeder extends Seeder
                 'parcel_id' => 'GM-BJL-002',
                 'street' => 'Bertil Harding Highway',
                 'city' => 'Bakau',
-                'state' => 'Kanifing',
                 'postal_code' => '221',
-                'ownership_type' => 'Leasehold',
                 'centroid_lat' => 13.4781,
                 'centroid_lng' => -16.6856,
                 'boundary_coordinates' => [
@@ -47,8 +42,6 @@ class PropertySeeder extends Seeder
                     [13.4781, -16.6860],
                 ],
                 'area' => 750,
-                'land_use_type' => 'Commercial',
-                'zoning' => 'Urban',
                 'survey_plan_number' => 'SPN-2024-002',
                 'boundary_description' => 'Opposite Bakau Stadium, along Bertil Harding Highway.',
             ],
@@ -56,9 +49,7 @@ class PropertySeeder extends Seeder
                 'parcel_id' => 'GM-BJL-003',
                 'street' => 'Independence Drive',
                 'city' => 'Banjul',
-                'state' => 'Banjul',
                 'postal_code' => '100',
-                'ownership_type' => 'Freehold',
                 'centroid_lat' => 13.4549,
                 'centroid_lng' => -16.5790,
                 'boundary_coordinates' => [
@@ -68,8 +59,6 @@ class PropertySeeder extends Seeder
                     [13.4549, -16.5794],
                 ],
                 'area' => 600,
-                'land_use_type' => 'Government',
-                'zoning' => 'Urban',
                 'survey_plan_number' => 'SPN-2024-003',
                 'boundary_description' => 'Near Arch 22, Banjul.',
             ],
@@ -77,9 +66,7 @@ class PropertySeeder extends Seeder
                 'parcel_id' => 'GM-WCR-001',
                 'street' => 'Brikama Highway',
                 'city' => 'Brikama',
-                'state' => 'West Coast Region',
                 'postal_code' => '300',
-                'ownership_type' => 'Leasehold',
                 'centroid_lat' => 13.2711,
                 'centroid_lng' => -16.6497,
                 'boundary_coordinates' => [
@@ -89,8 +76,6 @@ class PropertySeeder extends Seeder
                     [13.2711, -16.6501],
                 ],
                 'area' => 1200,
-                'land_use_type' => 'Agricultural',
-                'zoning' => 'Rural',
                 'survey_plan_number' => 'SPN-2024-004',
                 'boundary_description' => 'Farmland near Brikama Market.',
             ],
@@ -98,9 +83,7 @@ class PropertySeeder extends Seeder
                 'parcel_id' => 'GM-NBR-001',
                 'street' => 'North Bank Road',
                 'city' => 'Farafenni',
-                'state' => 'North Bank Region',
                 'postal_code' => '400',
-                'ownership_type' => 'Freehold',
                 'centroid_lat' => 13.5667,
                 'centroid_lng' => -15.6000,
                 'boundary_coordinates' => [
@@ -110,8 +93,6 @@ class PropertySeeder extends Seeder
                     [13.5667, -15.6004],
                 ],
                 'area' => 900,
-                'land_use_type' => 'Residential',
-                'zoning' => 'Urban',
                 'survey_plan_number' => 'SPN-2024-005',
                 'boundary_description' => 'Near Farafenni General Hospital.',
             ],
@@ -119,9 +100,7 @@ class PropertySeeder extends Seeder
                 'parcel_id' => 'GM-URR-001',
                 'street' => 'Basse Main Road',
                 'city' => 'Basse',
-                'state' => 'Upper River Region',
                 'postal_code' => '500',
-                'ownership_type' => 'Leasehold',
                 'centroid_lat' => 13.3122,
                 'centroid_lng' => -14.2222,
                 'boundary_coordinates' => [
@@ -131,8 +110,6 @@ class PropertySeeder extends Seeder
                     [13.3122, -14.2226],
                 ],
                 'area' => 800,
-                'land_use_type' => 'Commercial',
-                'zoning' => 'Urban',
                 'survey_plan_number' => 'SPN-2024-006',
                 'boundary_description' => 'Near Basse Market.',
             ],
@@ -140,9 +117,7 @@ class PropertySeeder extends Seeder
                 'parcel_id' => 'GM-CRR-001',
                 'street' => 'Janjanbureh Road',
                 'city' => 'Janjanbureh',
-                'state' => 'Central River Region',
                 'postal_code' => '600',
-                'ownership_type' => 'Freehold',
                 'centroid_lat' => 13.5333,
                 'centroid_lng' => -14.7667,
                 'boundary_coordinates' => [
@@ -152,8 +127,6 @@ class PropertySeeder extends Seeder
                     [13.5333, -14.7671],
                 ],
                 'area' => 950,
-                'land_use_type' => 'Residential',
-                'zoning' => 'Urban',
                 'survey_plan_number' => 'SPN-2024-007',
                 'boundary_description' => 'Near Janjanbureh Prison.',
             ],
@@ -161,9 +134,7 @@ class PropertySeeder extends Seeder
                 'parcel_id' => 'GM-LRR-001',
                 'street' => 'Soma Highway',
                 'city' => 'Soma',
-                'state' => 'Lower River Region',
                 'postal_code' => '700',
-                'ownership_type' => 'Leasehold',
                 'centroid_lat' => 13.4333,
                 'centroid_lng' => -15.5333,
                 'boundary_coordinates' => [
@@ -173,8 +144,6 @@ class PropertySeeder extends Seeder
                     [13.4333, -15.5337],
                 ],
                 'area' => 1100,
-                'land_use_type' => 'Agricultural',
-                'zoning' => 'Rural',
                 'survey_plan_number' => 'SPN-2024-008',
                 'boundary_description' => 'Near Soma Market.',
             ],
@@ -182,9 +151,7 @@ class PropertySeeder extends Seeder
                 'parcel_id' => 'GM-NBR-002',
                 'street' => 'Kerewan Road',
                 'city' => 'Kerewan',
-                'state' => 'North Bank Region',
                 'postal_code' => '410',
-                'ownership_type' => 'Freehold',
                 'centroid_lat' => 13.4892,
                 'centroid_lng' => -16.0886,
                 'boundary_coordinates' => [
@@ -194,8 +161,6 @@ class PropertySeeder extends Seeder
                     [13.4892, -16.0890],
                 ],
                 'area' => 700,
-                'land_use_type' => 'Residential',
-                'zoning' => 'Urban',
                 'survey_plan_number' => 'SPN-2024-009',
                 'boundary_description' => 'Near Kerewan Health Centre.',
             ],
@@ -203,9 +168,7 @@ class PropertySeeder extends Seeder
                 'parcel_id' => 'GM-WCR-002',
                 'street' => 'Sanyang Coastal Road',
                 'city' => 'Sanyang',
-                'state' => 'West Coast Region',
                 'postal_code' => '320',
-                'ownership_type' => 'Leasehold',
                 'centroid_lat' => 13.1881,
                 'centroid_lng' => -16.7558,
                 'boundary_coordinates' => [
@@ -215,8 +178,6 @@ class PropertySeeder extends Seeder
                     [13.1881, -16.7562],
                 ],
                 'area' => 850,
-                'land_use_type' => 'Tourism',
-                'zoning' => 'Coastal',
                 'survey_plan_number' => 'SPN-2024-010',
                 'boundary_description' => 'Near Sanyang Beach.',
             ],
@@ -225,6 +186,35 @@ class PropertySeeder extends Seeder
         // Update land use and zoning options to match form select options
         $landUseTypes = ['Residential', 'Commercial', 'Agricultural', 'Industrial', 'Mixed_use'];
         $zoningTypes = ['R1', 'R2', 'C1', 'A1', 'I1'];
+
+        // Helper to get setting id by type and name
+        // $getSettingId = function ($type, $name) {
+        //     return Setting::where('type', $type)->where('name', $name)->value('id');
+        // };
+
+        // first get all the regions from the settings table
+        $regions = Setting::where('type', 'region')->pluck('id', 'name')->toArray();
+
+        // Get all regions with their districts
+        $regionsWithDistricts = [];
+        foreach ($regions as $regionName => $regionId) {
+            $districts = Setting::where('type', 'district')->where('parent_id', $regionId)->pluck('id')->toArray();
+            if (!empty($districts)) {
+                $regionsWithDistricts[$regionId] = $districts;
+            }
+        }
+
+        // Fetch all ownership types, land use types, and zoning ids
+        $ownershipTypeIds = Setting::where('type', 'ownership_type')->pluck('id')->toArray();
+        $landUseTypeIds = Setting::where('type', 'land_use')->pluck('id')->toArray();
+        $zoningIds = Setting::where('type', 'zoning')->pluck('id')->toArray();
+
+        $getSettingId = function ($type, $name) use ($regions) {
+            if ($type === 'region') {
+                return $regions[$name] ?? null;
+            }
+            return Setting::where('type', $type)->where('name', $name)->value('id');
+        };
 
         // Generate 100 properties by varying the base properties
         for ($i = 1; $i <= 100; $i++) {
@@ -247,9 +237,19 @@ class PropertySeeder extends Seeder
             ];
             $property['boundary_coordinates'] = $boundaryCoordinates;
 
-            // Assign random land use and zoning using the updated options
-            $property['land_use_type'] = $landUseTypes[array_rand($landUseTypes)];
-            $property['zoning'] = $zoningTypes[array_rand($zoningTypes)];
+            // Randomly assign region and district
+            $regionIds = array_keys($regionsWithDistricts);
+            $randomRegionId = $regionIds[array_rand($regionIds)];
+            $districtIds = $regionsWithDistricts[$randomRegionId];
+            $randomDistrictId = $districtIds[array_rand($districtIds)];
+
+            $property['region_id'] = $randomRegionId;
+            $property['district_id'] = $randomDistrictId;
+
+            // Randomly assign ownership_type, land_use_type, and zoning
+            $property['ownership_type_id'] = $ownershipTypeIds[array_rand($ownershipTypeIds)];
+            $property['land_use_type_id'] = $landUseTypeIds[array_rand($landUseTypeIds)];
+            $property['zoning_id'] = $zoningIds[array_rand($zoningIds)];
 
             Property::create($property);
         }

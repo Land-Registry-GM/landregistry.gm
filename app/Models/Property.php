@@ -17,15 +17,14 @@ class Property extends Model
         'parcel_id',
         'street',
         'city',
-        'state',
         'postal_code',
-        'ownership_type',
+        'ownership_type_id',
         'centroid_lat',
         'centroid_lng',
         'boundary_coordinates',
         'area',
-        'land_use_type',
-        'zoning',
+        'land_use_type_id',
+        'zoning_id',
         'survey_plan_number',
         'boundary_description'
     ];
@@ -96,5 +95,30 @@ class Property extends Model
         return $this->belongsToMany(Owner::class, 'property_owner') // Explicit table name
                     ->withPivot(['acquisition_date', 'is_current_owner'])
                     ->withTimestamps();
+    }
+
+    public function region()
+    {
+        return $this->belongsTo(\App\Models\Setting::class, 'region_id');
+    }
+
+    public function district()
+    {
+        return $this->belongsTo(\App\Models\Setting::class, 'district_id');
+    }
+
+    public function ownershipType()
+    {
+        return $this->belongsTo(Setting::class, 'ownership_type_id');
+    }
+
+    public function landUseType()
+    {
+        return $this->belongsTo(Setting::class, 'land_use_type_id');
+    }
+
+    public function zoning()
+    {
+        return $this->belongsTo(Setting::class, 'zoning_id');
     }
 }
