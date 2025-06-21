@@ -21,6 +21,8 @@ use Filament\Forms\Components\Section;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Models\Setting;
+use Cheesegrits\FilamentGoogleMaps\Fields\Map;
+use Filament\Forms\Components\Hidden;
 
 class PropertyResource extends Resource
 {
@@ -29,175 +31,292 @@ class PropertyResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
-{
-    return $form
-        ->schema([
-            Section::make('Basic Information')
-            ->collapsible()
-                ->schema([
-                    TextInput::make('parcel_id')
-                        ->label('Parcel ID')
-                        ->required()
-                        ->unique(ignoreRecord: true)
-                        ->maxLength(50),
-                        
-                    Fieldset::make('Address')
-                        ->schema([
-                            TextInput::make('street')
-                                ->required()
-                                ->maxLength(255),
-                                
-                            TextInput::make('city')
-                                ->required()
-                                ->maxLength(100),
-                                
-                            TextInput::make('postal_code')
-                                ->required()
-                                ->maxLength(20),
-                                
-                            Select::make('region_id')
-                                ->label('Region')
-                                ->options(
-                                    Setting::where('type', 'region')
-                                        ->orderBy('sort_order')
-                                        ->pluck('name', 'id')
-                                )
-                                ->required()
-                                ->searchable()
-                                ->preload()
-                                ->reactive(),
+    {
+        return $form
+            ->schema([
+                Section::make('Basic Information')
+                    ->collapsible()
+                    ->schema([
+                        TextInput::make('parcel_id')
+                            ->label('Parcel ID')
+                            ->required()
+                            ->unique(ignoreRecord: true)
+                            ->maxLength(50),
 
-                            Select::make('district_id')
-                                ->label('District')
-                                ->options(function (callable $get) {
-                                    $regionId = $get('region_id');
-                                    if (!$regionId) {
-                                        return [];
-                                    }
-                                    return Setting::where('type', 'district')
-                                        ->where('parent_id', $regionId)
-                                        ->orderBy('sort_order')
-                                        ->pluck('name', 'id');
-                                })
-                                ->required()
-                                ->searchable()
-                                ->preload()
-                                ->reactive(),
+                        Fieldset::make('Address')
+                            ->schema([
+                                TextInput::make('street')
+                                    ->required()
+                                    ->maxLength(255),
 
-                            Select::make('ownership_type_id')  // Changed to _id to match relation convention
-                                ->label('Ownership Type')
-                                ->options(
-                                    Setting::where('type', 'ownership_type')
-                                        ->orderBy('sort_order')
-                                        ->pluck('name', 'id')
-                                )
-                                ->required()
-                                ->default(
-                                    fn () => Setting::where('type', 'land_use')
-                                        ->where('name', 'Freehold')
-                                        ->first()?->id
-                                )
-                                ->searchable()  // Added for better UX with many options
-                                ->preload()     // Loads options immediately
+                                TextInput::make('city')
+                                    ->required()
+                                    ->maxLength(100),
+
+                                TextInput::make('postal_code')
+                                    ->required()
+                                    ->maxLength(20),
+
+                                Select::make('region_id')
+                                    ->label('Region')
+                                    ->options(
+                                        Setting::where('type', 'region')
+                                            ->orderBy('sort_order')
+                                            ->pluck('name', 'id')
+                                    )
+                                    ->required()
+                                    ->searchable()
+                                    ->preload()
+                                    ->reactive(),
+
+                                Select::make('district_id')
+                                    ->label('District')
+                                    ->options(function (callable $get) {
+                                        $regionId = $get('region_id');
+                                        if (!$regionId) {
+                                            return [];
+                                        }
+                                        return Setting::where('type', 'district')
+                                            ->where('parent_id', $regionId)
+                                            ->orderBy('sort_order')
+                                            ->pluck('name', 'id');
+                                    })
+                                    ->required()
+                                    ->searchable()
+                                    ->preload()
+                                    ->reactive(),
+
+                                Select::make('ownership_type_id')  // Changed to _id to match relation convention
+                                    ->label('Ownership Type')
+                                    ->options(
+                                        Setting::where('type', 'ownership_type')
+                                            ->orderBy('sort_order')
+                                            ->pluck('name', 'id')
+                                    )
+                                    ->required()
+                                    ->default(
+                                        fn() => Setting::where('type', 'land_use')
+                                            ->where('name', 'Freehold')
+                                            ->first()?->id
+                                    )
+                                    ->searchable()  // Added for better UX with many options
+                                    ->preload()     // Loads options immediately
                             ]),
 
-                            
-                        
-                    
-                ]),
-                
-            Section::make('Geographical Data')
-                ->collapsible()
-                ->schema([
-                    Fieldset::make('Coordinates')
-                ->schema([
-                    TextInput::make('centroid_lat')
-                        ->label('Centroid Latitude')
-                        ->numeric()
-                        ->required()
-                        ->minValue(-90)
-                        ->maxValue(90)
-                        ->step(0.0000001)
-                        ->inputMode('decimal'),
-                        
-                    TextInput::make('centroid_lng')
-                        ->label('Centroid Longitude')
-                        ->numeric()
-                        ->required()
-                        ->minValue(-180)
-                        ->maxValue(180)
-                        ->step(0.0000001)
-                        ->inputMode('decimal'),
-                ])->columns(2),
-                
-            Repeater::make('boundary_coordinates')
-                ->label('Boundary Coordinates')
-                ->schema([
-                    TextInput::make('lat')
-                        ->label('Latitude')
-                        ->numeric()
-                        ->required()
-                        ->minValue(-90)
-                        ->maxValue(90)
-                        ->step(0.0000001)
-                        ->inputMode('decimal'),
-                        
-                    TextInput::make('lng')
-                        ->label('Longitude')
-                        ->numeric()
-                        ->required()
-                        ->minValue(-180)
-                        ->maxValue(180)
-                        ->step(0.0000001)
-                        ->inputMode('decimal'),
-                ])
-                ->defaultItems(4)
-                ->minItems(3)
-                ->columnSpanFull()
-                ->grid(2),
-                ]),
-                
-            Section::make('Property Details')
-            ->collapsible()
-                ->schema([
-                    TextInput::make('area')
-                        ->numeric()
-                        ->required()
-                        ->suffix('sq. meters')
-                        ->inputMode('decimal'),
-                        
-                    Select::make('land_use_type_id')
-                        ->label('Land Use Type')
-                        ->options(
-                            Setting::where('type', 'land_use')
-                                ->orderBy('sort_order')
-                                ->pluck('name', 'id')
-                        )
-                        ->required()
-                        ->searchable()
-                        ->preload(),
 
-                    Select::make('zoning_id')  // Changed to _id to match relation convention
-                        ->label('Zoning')
-                        ->options(
-                            Setting::where('type', 'zoning')
-                                ->orderBy('sort_order')
-                                ->pluck('name', 'id')
-                        )
-                        ->required()
-                        ->searchable()
-                        ->preload(),
-                        
-                    TextInput::make('survey_plan_number')
-                        ->nullable()
-                        ->maxLength(100),
-                        
-                    Textarea::make('boundary_description')
-                        ->nullable()
-                        ->columnSpanFull(),
-                ])->columns(2),
-        ]);
-}
+
+
+                    ]),
+
+                Section::make('Geographical Data')
+                    ->collapsible()
+                    ->schema([
+                        Fieldset::make('Coordinates')
+                            ->schema([
+                                TextInput::make('centroid_lat')
+                                    ->label('Centroid Latitude')
+                                    ->numeric()
+                                    ->required()
+                                    ->minValue(-90)
+                                    ->maxValue(90)
+                                    ->step(0.0000001)
+                                    ->inputMode('decimal'),
+
+                                TextInput::make('centroid_lng')
+                                    ->label('Centroid Longitude')
+                                    ->numeric()
+                                    ->required()
+                                    ->minValue(-180)
+                                    ->maxValue(180)
+                                    ->step(0.0000001)
+                                    ->inputMode('decimal'),
+                            ])->columns(2),
+
+                        Repeater::make('boundary_coordinates')
+                            ->label('Boundary Coordinates')
+                            ->schema([
+                                TextInput::make('lat')
+                                    ->label('Latitude')
+                                    ->numeric()
+                                    ->required()
+                                    ->minValue(-90)
+                                    ->maxValue(90)
+                                    ->step(0.0000001)
+                                    ->inputMode('decimal'),
+
+                                TextInput::make('lng')
+                                    ->label('Longitude')
+                                    ->numeric()
+                                    ->required()
+                                    ->minValue(-180)
+                                    ->maxValue(180)
+                                    ->step(0.0000001)
+                                    ->inputMode('decimal'),
+                            ])
+                            ->defaultItems(4)
+                            ->minItems(3)
+                            ->columnSpanFull()
+                            ->grid(2),
+                    ]),
+
+                Map::make('location')
+                    ->columnSpanFull()
+                    ->defaultLocation([
+                        'lat' => 13.271,
+                        'lng' => -16.65,
+                    ])
+                    ->defaultZoom(18)
+                    ->height('400px')
+                    ->mapControls([
+                        'zoomControl' => true,
+                        'mapTypeControl' => true,
+                        'scaleControl' => true,
+                        'fullscreenControl' => true,
+                    ])
+                    ->geoJson(function () {
+                        return json_encode([
+                            'type' => 'FeatureCollection',
+                            'features' => [
+                                // Plot 1 (center)
+                                [
+                                    'type' => 'Feature',
+                                    'properties' => [],
+                                    'geometry' => [
+                                        'type' => 'Polygon',
+                                        'coordinates' => [[
+                                            [-16.6500925, 13.2710675],
+                                            [-16.6499075, 13.2710675],
+                                            [-16.6499075, 13.2709325],
+                                            [-16.6500925, 13.2709325],
+                                            [-16.6500925, 13.2710675],
+                                        ]]
+                                    ],
+                                ],
+                                // Plot 2 (northwest)
+                                [
+                                    'type' => 'Feature',
+                                    'properties' => [],
+                                    'geometry' => [
+                                        'type' => 'Polygon',
+                                        'coordinates' => [[
+                                            [-16.6502, 13.27125],
+                                            [-16.6500, 13.27125],
+                                            [-16.6500, 13.2711],
+                                            [-16.6502, 13.2711],
+                                            [-16.6502, 13.27125],
+                                        ]]
+                                    ],
+                                ],
+                                // Plot 3 (northeast)
+                                [
+                                    'type' => 'Feature',
+                                    'properties' => [],
+                                    'geometry' => [
+                                        'type' => 'Polygon',
+                                        'coordinates' => [[
+                                            [-16.6498, 13.27125],
+                                            [-16.6496, 13.27125],
+                                            [-16.6496, 13.2711],
+                                            [-16.6498, 13.2711],
+                                            [-16.6498, 13.27125],
+                                        ]]
+                                    ],
+                                ],
+                                // Plot 4 (southwest)
+                                [
+                                    'type' => 'Feature',
+                                    'properties' => [],
+                                    'geometry' => [
+                                        'type' => 'Polygon',
+                                        'coordinates' => [[
+                                            [-16.6502, 13.27085],
+                                            [-16.6500, 13.27085],
+                                            [-16.6500, 13.2707],
+                                            [-16.6502, 13.2707],
+                                            [-16.6502, 13.27085],
+                                        ]]
+                                    ],
+                                ],
+                                // Plot 5 (southeast)
+                                [
+                                    'type' => 'Feature',
+                                    'properties' => [],
+                                    'geometry' => [
+                                        'type' => 'Polygon',
+                                        'coordinates' => [[
+                                            [-16.6498, 13.27085],
+                                            [-16.6496, 13.27085],
+                                            [-16.6496, 13.2707],
+                                            [-16.6498, 13.2707],
+                                            [-16.6498, 13.27085],
+                                        ]]
+                                    ],
+                                ],
+                                // Plot 6 (direct south)
+                                [
+                                    'type' => 'Feature',
+                                    'properties' => [],
+                                    'geometry' => [
+                                        'type' => 'Polygon',
+                                        'coordinates' => [[
+                                            [-16.65, 13.2706],
+                                            [-16.6498, 13.2706],
+                                            [-16.6498, 13.27045],
+                                            [-16.65, 13.27045],
+                                            [-16.65, 13.2706],
+                                        ]]
+                                    ],
+                                ],
+                            ]
+                        ]);
+                    })
+                    ->geoJsonContainsField('geo_fence_json'),
+
+
+
+
+
+                Section::make('Property Details')
+                    ->collapsible()
+                    ->schema([
+                        TextInput::make('area')
+                            ->numeric()
+                            ->required()
+                            ->suffix('sq. meters')
+                            ->inputMode('decimal'),
+
+                        Select::make('land_use_type_id')
+                            ->label('Land Use Type')
+                            ->options(
+                                Setting::where('type', 'land_use')
+                                    ->orderBy('sort_order')
+                                    ->pluck('name', 'id')
+                            )
+                            ->required()
+                            ->searchable()
+                            ->preload(),
+
+                        Select::make('zoning_id')  // Changed to _id to match relation convention
+                            ->label('Zoning')
+                            ->options(
+                                Setting::where('type', 'zoning')
+                                    ->orderBy('sort_order')
+                                    ->pluck('name', 'id')
+                            )
+                            ->required()
+                            ->searchable()
+                            ->preload(),
+
+                        TextInput::make('survey_plan_number')
+                            ->nullable()
+                            ->maxLength(100),
+
+                        Textarea::make('boundary_description')
+                            ->nullable()
+                            ->columnSpanFull(),
+                    ])->columns(2),
+            ]);
+    }
 
     public static function table(Table $table): Table
     {
@@ -246,6 +365,4 @@ class PropertyResource extends Resource
             RelationManagers\DisputesRelationManager::class,
         ];
     }
-
-
 }
