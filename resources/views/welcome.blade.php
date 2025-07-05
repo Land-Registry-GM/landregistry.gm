@@ -1,293 +1,144 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name', 'Land Registry - The Gambia') }}</title>
-    
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            color: #333;
-            background-color: #f5f5f5;
-        }
-        header {
-            background-color: #2c3e50;
-            color: white;
-            padding: 1rem 0;
-        }
-        nav {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
-        }
-        .logo {
-            font-weight: bold;
-            font-size: 1.5rem;
-            white-space: nowrap;
-        }
-        .nav-content {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            width: 100%;
-            justify-content: space-between;
-        }
-        .nav-links {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            transition: opacity 0.3s;
-            white-space: nowrap;
-        }
-        .nav-links a:hover {
-            opacity: 0.8;
-        }
-        .nav-auth {
-            display: flex;
-            gap: 10px;
-        }
-        .nav-auth a {
-            color: white;
-            text-decoration: none;
-            padding: 8px 16px;
-            border-radius: 4px;
-            transition: background-color 0.3s;
-        }
-        .nav-auth a:hover {
-            background-color: rgba(255,255,255,0.1);
-        }
-        .search-bar {
-            display: flex;
-            min-width: 400px;
-            width: 100%;
-            max-width: 500px;
-            margin: 0 20px;
-        }
-        .search-bar input {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px 0 0 4px;
-            width: 100%;
-            font-size: 14px;
-        }
-        .search-bar button {
-            padding: 0 20px;
-            background-color: #27ae60;
-            color: white;
-            border: none;
-            border-radius: 0 4px 4px 0;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .search-bar button:hover {
-            background-color: #2ecc71;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
-        .under-construction {
-            background-color: #27ae60;
-            color: white;
-            padding: 15px;
-            text-align: center;
-            border-radius: 5px;
-            margin-bottom: 30px;
-            font-size: 1.2em;
-        }
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin: 40px 0;
-        }
-        .card {
-            background: white;
-            border-radius: 8px;
-            padding: 25px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-        }
-        .card h3 {
-            color: #2c3e50;
-            margin-top: 0;
-        }
-        .contact {
-            text-align: center;
-            margin: 40px 0;
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
-        }
-        .contact a {
-            color: #3498db;
-            text-decoration: none;
-        }
-        .contact a:hover {
-            text-decoration: underline;
-        }
-        footer {
-            background-color: #2c3e50;
-            color: white;
-            text-align: center;
-            padding: 30px 20px;
-            margin-top: 40px;
-        }
-        .footer-links {
-            margin: 20px 0;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-        .footer-links a {
-            color: white;
-            text-decoration: none;
-            padding: 5px 0;
-            border-bottom: 1px solid transparent;
-            transition: border-color 0.3s;
-        }
-        .footer-links a:hover {
-            border-bottom: 1px solid white;
-        }
-        .copyright {
-            margin-top: 20px;
-        }
-        @media (max-width: 1024px) {
-            .nav-content {
-                flex-direction: column;
-                gap: 15px;
-            }
-            .search-bar {
-                min-width: 100%;
-                max-width: 100%;
-                margin: 15px 0;
-            }
-        }
-        @media (max-width: 768px) {
-            .nav-links {
-                justify-content: center;
-            }
-            .footer-links {
-                flex-direction: column;
-                gap: 10px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <nav>
-            <div class="nav-content">
-                <div class="logo">{{ config('app.name', 'LRGM') }}</div>
-                <div class="search-bar">
-                    <input type="text" placeholder="Search for Property or Land...">
-                    <button>Search</button>
-                </div>
-                <div class="nav-links">
-                    <a href="{{ route('home') }}">Home</a>
-                    <a href="{{ route('about') }}">About</a>
-                    <a href="{{ route('services') }}">Services</a>
-                    <a href="{{ route('contact') }}">Contact</a>
-                    <a href="{{ route('faq') }}">FAQ</a>
-                    
-                    <!-- Auth Links -->
-                    <!-- <div class="nav-auth"> -->
-                    @auth
-                        <a
-                            href="{{ url('/auth/dashboard') }}"
-                            class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                        >
-                            Dashboard
-                        </a>
-                    @else
-                        <a
-                            href="/auth/login"
-                            class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                        >
-                            Log in
-                        </a>
-                        <a
-                            href="/auth/register"
-                            class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                        >
-                            Register
-                        </a>
-                    @endauth
-                    <!-- </div> -->
-                </div>
-            </div>
-        </nav>
-    </header>
+@extends('layouts.app')
 
-    <div class="container">
-        <div class="under-construction">
-            Website Under Construction
+@section('title', 'Welcome - Land Registry - The Gambia')
+
+@section('description', 'Welcome to the modern land registry system for The Gambia. Secure, transparent, and efficient property registration and management.')
+
+@section('content')
+<div class="container">
+    <!-- Hero Section -->
+    <section class="hero-section text-center py-8">
+        <div class="hero-content">
+            <h1 class="hero-title mb-6">Modern Land Registry for The Gambia</h1>
+            <p class="hero-subtitle mb-6">
+                Transforming property registration and management with secure, transparent, and efficient digital solutions
+            </p>
+            <div class="hero-buttons">
+                <a href="{{ route('services') }}" class="btn">Explore Services</a>
+                <a href="{{ route('about') }}" class="btn btn-outline">Learn More</a>
+            </div>
         </div>
-        
-        <p style="text-align: center; max-width: 800px; margin: 0 auto;">
-            We are working on a modern land registry system for The Gambia that will transform property registration and management.
-        </p>
-        
-        <div class="cards">
+    </section>
+
+    <!-- Status Banner -->
+    <section class="status-banner mb-6">
+        <div class="card" style="background: linear-gradient(135deg, #27ae60, #2ecc71); color: white; text-align: center;">
+            <h3>
+                <i class="fas fa-wrench"></i>
+                System Under Development
+            </h3>
+            <p>We are actively building a comprehensive land registry system. The platform will be available soon with full functionality.</p>
+        </div>
+    </section>
+
+    <!-- Features Grid -->
+    <section class="features-section mb-6">
+        <h2 class="text-center mb-6">Key Features</h2>
+        <div class="features-grid">
             <div class="card">
+                <div class="feature-icon">
+                    <i class="fas fa-lock"></i>
+                </div>
                 <h3>Secure Land Records</h3>
-                <p>Digital system for secure and transparent land ownership records with tamper-proof documentation.</p>
+                <p>Digital system for secure and transparent land ownership records with tamper-proof documentation and blockchain verification.</p>
             </div>
+
             <div class="card">
+                <div class="feature-icon">
+                    <i class="fas fa-file-alt"></i>
+                </div>
                 <h3>Title Registration</h3>
-                <p>Streamlined digital land title registration and verification process to reduce bureaucracy.</p>
+                <p>Streamlined digital land title registration and verification process to reduce bureaucracy and processing times.</p>
             </div>
+
             <div class="card">
+                <div class="feature-icon">
+                    <i class="fas fa-home"></i>
+                </div>
                 <h3>Property Information</h3>
-                <p>Online access to verified property information for citizens, businesses and government agencies.</p>
+                <p>Online access to verified property information for citizens, businesses, and government agencies with real-time updates.</p>
             </div>
+
             <div class="card">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
                 <h3>Efficient Processes</h3>
-                <p>Reduced paperwork and automated workflows to make transactions faster and more reliable.</p>
+                <p>Reduced paperwork and automated workflows to make transactions faster, more reliable, and cost-effective.</p>
             </div>
+
             <div class="card">
+                <div class="feature-icon">
+                    <i class="fas fa-globe"></i>
+                </div>
                 <h3>Open Development</h3>
-                <p>Transparent, open-source approach to system development for public trust and collaboration.</p>
+                <p>Transparent, open-source approach to system development for public trust, collaboration, and continuous improvement.</p>
             </div>
+
             <div class="card">
+                <div class="feature-icon">
+                    <i class="fas fa-balance-scale"></i>
+                </div>
                 <h3>Dispute Resolution</h3>
-                <p>Integrated mechanisms for addressing land disputes and maintaining accurate records.</p>
+                <p>Integrated mechanisms for addressing land disputes and maintaining accurate records with legal framework compliance.</p>
             </div>
         </div>
-        
-        <div class="contact">
-            <h3>Contact Us</h3>
-            <p>For inquiries, please email: <a href="mailto:{{ config('mail.contact_email', 'info@landregistry.gm') }}">{{ config('mail.contact_email', 'info@landregistry.gm') }}</a></p>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits-section mb-6">
+        <div class="benefits-content">
+            <div class="benefits-text">
+                <h2>Why Choose Our Land Registry System?</h2>
+                <ul class="benefits-list">
+                    <li><strong>Transparency:</strong> All land records are publicly accessible and verifiable</li>
+                    <li><strong>Security:</strong> Advanced encryption and blockchain technology protect your data</li>
+                    <li><strong>Efficiency:</strong> Reduce processing times from months to days</li>
+                    <li><strong>Accessibility:</strong> 24/7 online access from anywhere in The Gambia</li>
+                    <li><strong>Compliance:</strong> Full compliance with Gambian land laws and regulations</li>
+                    <li><strong>Support:</strong> Dedicated support team for citizens and professionals</li>
+                </ul>
+            </div>
+            <div class="benefits-visual">
+                <div class="card" style="background: linear-gradient(135deg, #3498db, #2980b9); color: white;">
+                    <h3>Quick Facts</h3>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <span class="stat-number">100%</span>
+                            <span class="stat-label">Digital Records</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">24/7</span>
+                            <span class="stat-label">Accessibility</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">< 5 days</span>
+                            <span class="stat-label">Processing Time</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    
-    <footer>
-        <div class="footer-links">
-            <a href="https://www.landregistry.gm" target="_blank">Official Website</a>
-            <a href="https://github.com/Land-Registry-GM/landregistry.gm" target="_blank">GitHub Project</a>
-            <a href="mailto:{{ config('mail.contact_email', 'info@landregistry.gm') }}">Contact Email</a>
-            <a href="{{ route('privacy') }}">Privacy Policy</a>
-            <a href="{{ route('terms') }}">Terms of Service</a>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="card text-center">
+            <h3>Get in Touch</h3>
+            <p class="mb-4">Have questions about the land registry system? We're here to help.</p>
+            <div class="contact-options">
+                <a href="mailto:{{ config('mail.contact_email', 'info@landregistry.gm') }}" class="btn">
+                    <i class="fas fa-envelope"></i> Email Us
+                </a>
+                <a href="{{ route('contact') }}" class="btn btn-outline">
+                    <i class="fas fa-phone"></i> Contact Info
+                </a>
+            </div>
         </div>
-        <div class="copyright">
-            &copy; {{ date('Y') }} {{ config('app.name', 'Land Registry - The Gambia') }}. All rights reserved.
-        </div>
-    </footer>
-</body>
-</html>
+    </section>
+</div>
+
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/pages/welcome.css') }}">
+@endpush
+@endsection

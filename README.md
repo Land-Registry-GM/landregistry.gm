@@ -147,32 +147,6 @@ npm run dev
 
 Open your browser and navigate to: [http://localhost:8080](http://localhost:8080)
 
-## 🔐 Initial Setup
-
-### Create Super Admin User
-
-The application uses Filament Shield for role-based access control. To set up the initial super admin:
-
-```bash
-# Install Filament Shield
-php artisan shield:setup
-
-# Install Shield panel
-php artisan shield:install auth
-
-# Create a super admin user
-php artisan shield:super-admin
-```
-
-Follow the prompts to select or create a super admin user.
-
-### Generate Permissions
-
-```bash
-# Generate permissions for all resources
-php artisan shield:generate --all
-```
-
 ## 🐳 Docker Commands
 
 ### Useful Docker Commands
