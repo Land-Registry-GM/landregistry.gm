@@ -24,7 +24,7 @@ The following diagram illustrates the core database schema for the landregistry.
 This schema covers the main entities such as properties, owners, documents, transactions, and their relationships. It serves as a reference for understanding how data is structured and interconnected within the application.
 
 ## Setting up dev env
-
+Follow the steps here https://docs.docker.com/engine/install/ubuntu/
 1. Install Docker and Docker compose
 ```bash
 sudo apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
