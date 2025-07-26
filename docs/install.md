@@ -54,9 +54,8 @@ cp .env.example .env
 ```bash
 docker compose -f compose.dev.yaml up -d
 ```
-
-3. Go through the env file and update APP_URL 
-4. Generate key and update APP_KEY using 
+Go through the env file and update APP_URL 
+Generate key and update APP_KEY using the command below, the .env file will be updated with the generated key.
 ```bash 
 docker compose -f compose.dev.yaml exec workspace php artisan key:generate
 ```
