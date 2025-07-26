@@ -40,24 +40,25 @@ cd landregistry.gm
 cp .env.example .env
 ```
 
-3. Go through the env file and update APP_URL 
-4. Generate key and update APP_KEY using 
-```bash 
-docker compose -f compose.dev.yaml exec workspace php artisan key:generate
-```
-
 4. You may have to adjust the UID and GID variables in the .env file to match your user ID and group ID in the terminal.
 
 ```bash
  id -u
  id -g
 ```
+
 ## Starting the Application
 
 ### 1. Start Docker Compose Services
 
 ```bash
 docker compose -f compose.dev.yaml up -d
+```
+
+3. Go through the env file and update APP_URL 
+4. Generate key and update APP_KEY using 
+```bash 
+docker compose -f compose.dev.yaml exec workspace php artisan key:generate
 ```
 
 ### 2. Install Laravel and Frontend Dependencies
