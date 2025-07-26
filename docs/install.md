@@ -101,6 +101,11 @@ This command processes and builds your frontend assets (JavaScript, CSS, etc.) s
 docker compose -f compose.dev.yaml exec workspace php artisan migrate
 ```
 
+### 4. Run Seeds
+docker compose -f compose.dev.yaml exec workspace php artisan db:seed
+
+This command populates the database with relevant test data. 
+
 ### 4. Access the Application
 
 Open your browser and go to [http://localhost](http://localhost).
