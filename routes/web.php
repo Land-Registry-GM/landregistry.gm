@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Services\BlockchainService;
 
 Route::get('/', function () {
     Log::info('Welcome page visited');
@@ -88,3 +89,42 @@ Route::get('/terms', function () {
     return view('terms');
 })->name('terms');
 
+
+
+Route::get('/test-blockchain', function () {
+    $blockchain = app(BlockchainService::class);
+    
+    // Get accounts
+    $accounts = $blockchain->waitForResult(fn($cb) => $blockchain->getWeb3()->eth->accounts($cb));
+    $from = $accounts[0];
+    $to = $accounts[1];
+    
+    Log::info('Using accounts', compact('from', 'to'));
+    
+    // Get balances before
+    $balanceBefore = $blockchain->getBalance($from);
+    Log::info('Balance before', ['balance' => $balanceBefore->toString()]);
+    
+    // Prepare and send transaction
+    $txHash = $blockchain->sendTransaction([
+        'from' => $from,
+        'to' => $to,
+        'value' => '1000000000000000',
+    ]);
+    
+    Log::info('Transaction sent', ['tx_hash' => $txHash]);
+    
+    // Wait for confirmations
+    $receipt = $blockchain->waitForConfirmations($txHash, 1);
+    
+    // Get balances after
+    $balanceAfter = $blockchain->getBalance($from);
+    
+    return response()->json([
+        'tx_hash' => $txHash,
+        'receipt' => $receipt,
+        'balance_before' => $balanceBefore->toString(),
+        'balance_after' => $balanceAfter->toString(),
+        'balance_change' => bcsub($balanceBefore->toString(), $balanceAfter->toString(), 0)
+    ]);
+});

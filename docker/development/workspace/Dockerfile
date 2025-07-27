@@ -23,6 +23,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libcurl4-openssl-dev \
     libicu-dev \
     libzip-dev \
+    libgmp-dev \
     && docker-php-ext-install -j$(nproc) \
     pdo_mysql \
     pdo_pgsql \
@@ -32,6 +33,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     zip \
     bcmath \
     soap \
+    gmp \
     && pecl install redis xdebug \
     && docker-php-ext-enable redis xdebug\
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
@@ -55,6 +57,12 @@ RUN if [ "${XDEBUG_ENABLED}" = "true" ]; then \
     echo "xdebug.client_host=${XDEBUG_HOST}" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini ; \
     echo "xdebug.start_with_request=yes" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini ; \
 fi
+
+# Install Node.js and npm
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y nodejs && \
+    npm install -g npm@latest
+
 
 # If the group already exists, use it; otherwise, create the 'www' group
 RUN if getent group ${GID}; then \
@@ -87,6 +95,7 @@ WORKDIR /var/www
 
 # Override the entrypoint to avoid the default php entrypoint
 ENTRYPOINT []
+
 
 # Default command to keep the container running
 CMD ["bash"]

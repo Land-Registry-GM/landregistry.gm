@@ -17,6 +17,29 @@ services:
       php-fpm:
         condition: service_started  # Wait for php-fpm to start
 
+  ganache:
+    image: trufflesuite/ganache-cli
+    container_name: ganache
+    ports:
+      - "8545:8545"
+    command: [
+        "ganache-cli",
+        "--deterministic",
+        "--db=/data/chaindata",
+        "--networkId=1337",
+        "--host=0.0.0.0",
+        "--blockTime=1",
+        "--gasLimit=0x1fffffffffffff",  # Very high gas limit
+        "--defaultBalanceEther=1000",
+        "--mnemonic=\"myth like bonus scare over problem client lizard pioneer submit female collect\"",
+        "--accounts=10"
+    ]
+    volumes:
+      - ganache_data:/data
+    networks:
+      - laravel-development
+    restart: unless-stopped
+
   php-fpm:
     # For the php-fpm service, we will create a custom image to install the necessary PHP extensions and setup proper permissions.
     build:
@@ -67,6 +90,8 @@ services:
       - ./:/var/www
     networks:
       - laravel-development
+    depends_on:
+      - ganache
 
   postgres:
     image: postgres:16
@@ -92,3 +117,5 @@ networks:
 
 volumes:
   postgres-data-development:
+  ganache_data:
+
