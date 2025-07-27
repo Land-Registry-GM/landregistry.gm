@@ -8,3 +8,4 @@ php artisan make:migration create_surveys_table
 php artisan make:migration create_permits_table
 php artisan make:migration create_disputes_table
 php artisan make:migration create_documents_table
+php artisan make:migration create_blockchain_transactions_table
